@@ -1,0 +1,24 @@
+{
+  "name": "Text Kit: Reverse Lines",
+  "description": "Reverses the order of the lines",
+  "runtime": "javascript",
+  "javascript": {
+    "entry": "reverse-lines.js"
+  },
+  "inputFields": [
+    {
+      "key": "text",
+      "label": "Text",
+      "component": "TextArea",
+      "defaultValue": "first\nsecond\nthird"
+    }
+  ],
+  "outputFields": [
+    {
+      "key": "result",
+      "label": "Result",
+      "component": "TextArea"
+    }
+  ],
+  "autoRun": true
+}

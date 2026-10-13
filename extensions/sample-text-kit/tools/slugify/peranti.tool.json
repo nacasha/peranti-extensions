@@ -1,0 +1,24 @@
+{
+  "name": "Text Kit: Slugify",
+  "description": "Turns a title into a URL slug",
+  "runtime": "javascript",
+  "javascript": {
+    "entry": "slugify.js"
+  },
+  "inputFields": [
+    {
+      "key": "text",
+      "label": "Text",
+      "component": "TextArea",
+      "defaultValue": "Hello World, from Peranti!"
+    }
+  ],
+  "outputFields": [
+    {
+      "key": "slug",
+      "label": "Slug",
+      "component": "Text"
+    }
+  ],
+  "autoRun": true
+}

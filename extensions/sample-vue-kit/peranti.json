@@ -1,0 +1,7 @@
+{
+  "name": "Sample: Vue Kit",
+  "description": "A field drawn with Vue and no build step, from Vue's single-file runtime build: a tag editor",
+  "version": "1.0.0",
+  "author": "Peranti",
+  "category": "Samples"
+}

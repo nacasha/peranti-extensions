@@ -1,0 +1,36 @@
+{
+  "name": "Checklist",
+  "description": "Items to tick off, with a progress bar. Add with Enter, remove with ×",
+  "kind": "input",
+  "entry": "index.html",
+  "height": 200,
+  "value": {
+    "type": "array",
+    "description": "The items, in order",
+    "fields": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "description": "What to do"
+      },
+      {
+        "name": "done",
+        "type": "boolean",
+        "required": true,
+        "description": "Ticked off"
+      }
+    ],
+    "example": [
+      {
+        "label": "Write the manifest",
+        "done": true
+      },
+      {
+        "label": "Publish",
+        "done": false
+      }
+    ]
+  },
+  "props": []
+}

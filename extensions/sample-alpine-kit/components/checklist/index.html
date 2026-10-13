@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!-- Linked files next to this one are inlined by Peranti when it loads -->
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <!-- Alpine's CSP build: no eval, so attributes only name properties and
+         methods of the data registered in checklist.js -->
+    <div class="checklist" x-data="checklist">
+      <div class="progress">
+        <div class="bar"><div class="fill" x-bind:style="fillStyle"></div></div>
+        <span class="count" x-text="countLabel"></span>
+      </div>
+
+      <ul class="items">
+        <template x-for="item in items" x-bind:key="item.id">
+          <li class="item">
+            <label>
+              <input type="checkbox" x-bind:checked="item.done" x-bind:disabled="readOnly" x-on:change="toggle">
+              <span x-text="item.label"></span>
+            </label>
+            <button type="button" class="remove" x-show="canEdit" x-on:click="remove" aria-label="Remove">×</button>
+          </li>
+        </template>
+      </ul>
+
+      <input
+        class="new"
+        x-show="canEdit"
+        x-model="draft"
+        x-on:keydown.enter="add"
+        placeholder="Add an item and press Enter"
+      >
+    </div>
+
+    <script src="checklist.js"></script>
+    <script src="vendor/alpine-csp.min.js"></script>
+  </body>
+</html>

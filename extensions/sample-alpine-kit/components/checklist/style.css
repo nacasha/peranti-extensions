@@ -1,0 +1,106 @@
+/* Theme variables such as --accent and --line come from Peranti */
+body {
+  padding: 10px 12px;
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.bar {
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--hover);
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+  transition: width 0.2s ease;
+}
+
+.count {
+  color: var(--muted);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 6px;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 0 4px;
+  border-radius: var(--radius-sm);
+}
+
+.item:hover {
+  background: var(--hover);
+}
+
+.item label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+}
+
+.item input {
+  accent-color: var(--accent);
+}
+
+.item input:checked + span {
+  color: var(--faint);
+  text-decoration: line-through;
+}
+
+.remove {
+  padding: 0 6px;
+  border: 0;
+  background: none;
+  color: var(--faint);
+  font-size: 15px;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.item:hover .remove {
+  opacity: 1;
+}
+
+.remove:hover {
+  color: var(--danger-color);
+}
+
+.new {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 6px 8px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--text-color);
+  font: inherit;
+  outline: none;
+}
+
+.new:focus {
+  border-style: solid;
+  border-color: var(--accent);
+}

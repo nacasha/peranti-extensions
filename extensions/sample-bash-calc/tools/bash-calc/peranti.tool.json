@@ -1,0 +1,70 @@
+{
+  "name": "Sample: Bash Calculator",
+  "description": "Tiny calculator written in bash, parses input with jq",
+  "runtime": "executable",
+  "executable": {
+    "command": "bash",
+    "args": [
+      "run.sh"
+    ]
+  },
+  "inputFields": [
+    {
+      "key": "a",
+      "label": "A",
+      "component": "Text",
+      "defaultValue": "10",
+      "props": {
+        "type": "number"
+      }
+    },
+    {
+      "key": "op",
+      "label": "Operation",
+      "component": "Switch",
+      "defaultValue": "+",
+      "props": {
+        "options": [
+          {
+            "label": "+",
+            "value": "+"
+          },
+          {
+            "label": "-",
+            "value": "-"
+          },
+          {
+            "label": "×",
+            "value": "*"
+          },
+          {
+            "label": "÷",
+            "value": "/"
+          }
+        ]
+      }
+    },
+    {
+      "key": "b",
+      "label": "B",
+      "component": "Text",
+      "defaultValue": "3",
+      "props": {
+        "type": "number"
+      }
+    }
+  ],
+  "outputFields": [
+    {
+      "key": "result",
+      "label": "Result",
+      "component": "Text"
+    },
+    {
+      "key": "expression",
+      "label": "Expression",
+      "component": "Text"
+    }
+  ],
+  "autoRun": true
+}

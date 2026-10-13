@@ -1,0 +1,7 @@
+{
+  "name": "Sample: Node Script",
+  "description": "Uppercases text with a plain node script",
+  "version": "1.0.0",
+  "author": "Peranti",
+  "category": "Samples"
+}

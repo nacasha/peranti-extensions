@@ -1,0 +1,32 @@
+{
+  "name": "React Kit: JSON Viewer",
+  "description": "Shows JSON as a tree you can fold, drawn by a React component",
+  "runtime": "javascript",
+  "javascript": {
+    "entry": "json-viewer.js"
+  },
+  "inputFields": [
+    {
+      "key": "json",
+      "label": "JSON",
+      "component": "TextArea",
+      "defaultValue": "{\n  \"name\": \"Peranti\",\n  \"version\": 2,\n  \"tags\": [\"tools\", \"desktop\"],\n  \"window\": { \"width\": 1200, \"height\": 800, \"maximized\": false },\n  \"plugins\": null\n}"
+    }
+  ],
+  "outputFields": [
+    {
+      "key": "tree",
+      "label": "Tree",
+      "component": "@json-tree",
+      "props": {
+        "expandDepth": 2
+      }
+    },
+    {
+      "key": "summary",
+      "label": "Summary",
+      "component": "Text"
+    }
+  ],
+  "autoRun": true
+}

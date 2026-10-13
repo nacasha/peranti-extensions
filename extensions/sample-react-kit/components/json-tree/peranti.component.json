@@ -1,0 +1,27 @@
+{
+  "name": "JSON Tree",
+  "description": "Collapsible tree of any JSON value, values colored by type",
+  "kind": "output",
+  "entry": "dist/index.html",
+  "height": 240,
+  "value": {
+    "type": "any",
+    "description": "Any JSON value",
+    "example": {
+      "name": "Peranti",
+      "tags": [
+        "tools",
+        "desktop"
+      ],
+      "open": true
+    }
+  },
+  "props": [
+    {
+      "name": "expandDepth",
+      "type": "number",
+      "default": 2,
+      "description": "Levels open at first, deeper ones start folded"
+    }
+  ]
+}

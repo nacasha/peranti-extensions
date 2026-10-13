@@ -1,0 +1,46 @@
+{
+  "name": "Alpine Kit: Checklist Progress",
+  "description": "Counts what's done on a checklist and lists what's left",
+  "runtime": "javascript",
+  "javascript": {
+    "entry": "progress.js"
+  },
+  "inputFields": [
+    {
+      "key": "items",
+      "label": "Checklist",
+      "component": "@checklist",
+      "defaultValue": [
+        {
+          "label": "Write the manifest",
+          "done": true
+        },
+        {
+          "label": "Build the component",
+          "done": true
+        },
+        {
+          "label": "Try it in the playground",
+          "done": false
+        },
+        {
+          "label": "Publish to the catalog",
+          "done": false
+        }
+      ]
+    }
+  ],
+  "outputFields": [
+    {
+      "key": "progress",
+      "label": "Progress",
+      "component": "Text"
+    },
+    {
+      "key": "remaining",
+      "label": "Remaining",
+      "component": "TextArea"
+    }
+  ],
+  "autoRun": true
+}

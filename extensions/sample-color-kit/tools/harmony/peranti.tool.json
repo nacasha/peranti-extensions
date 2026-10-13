@@ -1,0 +1,58 @@
+{
+  "name": "Color Kit: Harmony",
+  "description": "Builds a color harmony from a hue picked on a wheel",
+  "runtime": "javascript",
+  "javascript": {
+    "entry": "harmony.js"
+  },
+  "inputFields": [
+    {
+      "key": "base",
+      "label": "Base Color",
+      "component": "@hue-wheel",
+      "defaultValue": {
+        "hue": 200,
+        "lightness": 55
+      }
+    },
+    {
+      "key": "scheme",
+      "label": "Scheme",
+      "component": "Switch",
+      "defaultValue": "triadic",
+      "props": {
+        "options": [
+          {
+            "label": "Complementary",
+            "value": "complementary"
+          },
+          {
+            "label": "Triadic",
+            "value": "triadic"
+          },
+          {
+            "label": "Analogous",
+            "value": "analogous"
+          }
+        ]
+      }
+    }
+  ],
+  "outputFields": [
+    {
+      "key": "palette",
+      "label": "Palette",
+      "component": "@palette-strip",
+      "props": {
+        "size": "large",
+        "showHex": true
+      }
+    },
+    {
+      "key": "hexes",
+      "label": "Hex Codes",
+      "component": "Text"
+    }
+  ],
+  "autoRun": true
+}

@@ -1,0 +1,13 @@
+{
+  "name": "peranti-sample-star-rating",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^4.0.4",
+    "svelte": "^5.16.0",
+    "vite": "^5.4.11"
+  }
+}

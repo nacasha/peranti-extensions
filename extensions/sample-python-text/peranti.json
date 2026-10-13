@@ -1,0 +1,7 @@
+{
+  "name": "Sample: Python Text",
+  "description": "Transforms text with a Python script: several inputs, one run",
+  "version": "1.0.0",
+  "author": "Peranti",
+  "category": "Samples"
+}

@@ -1,0 +1,33 @@
+{
+  "name": "Svelte Kit: Review Card",
+  "description": "Writes a short review from a star rating and a comment",
+  "runtime": "javascript",
+  "javascript": {
+    "entry": "review-card.js"
+  },
+  "inputFields": [
+    {
+      "key": "rating",
+      "label": "Rating",
+      "component": "@star-rating",
+      "defaultValue": 4,
+      "props": {
+        "max": 5
+      }
+    },
+    {
+      "key": "comment",
+      "label": "Comment",
+      "component": "TextArea",
+      "defaultValue": "Fast and tidy, does what it says."
+    }
+  ],
+  "outputFields": [
+    {
+      "key": "review",
+      "label": "Review",
+      "component": "TextArea"
+    }
+  ],
+  "autoRun": true
+}

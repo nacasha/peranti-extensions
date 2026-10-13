@@ -1,0 +1,7 @@
+{
+  "name": "Sample: Bash Calculator",
+  "description": "Tiny calculator written in bash, parses input with jq",
+  "version": "1.0.0",
+  "author": "Peranti",
+  "category": "Samples"
+}

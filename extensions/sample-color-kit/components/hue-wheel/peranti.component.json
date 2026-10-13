@@ -1,0 +1,37 @@
+{
+  "name": "Hue Wheel",
+  "description": "Pick a hue on a wheel and a lightness on a slider",
+  "kind": "input",
+  "entry": "index.html",
+  "height": 220,
+  "value": {
+    "type": "object",
+    "description": "The picked color",
+    "fields": [
+      {
+        "name": "hue",
+        "type": "number",
+        "required": true,
+        "description": "Angle on the wheel, 0 to 359"
+      },
+      {
+        "name": "lightness",
+        "type": "number",
+        "required": true,
+        "description": "Percent, 15 to 85"
+      }
+    ],
+    "example": {
+      "hue": 200,
+      "lightness": 55
+    }
+  },
+  "props": [
+    {
+      "name": "showLightness",
+      "type": "boolean",
+      "default": true,
+      "description": "Show the lightness slider. Hidden, lightness keeps the value it has"
+    }
+  ]
+}

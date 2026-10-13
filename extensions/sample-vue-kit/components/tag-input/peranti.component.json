@@ -1,0 +1,30 @@
+{
+  "name": "Tag Input",
+  "description": "Type a tag and press Enter or comma, Backspace removes the last one",
+  "kind": "input",
+  "entry": "index.html",
+  "height": 56,
+  "value": {
+    "type": "array",
+    "itemType": "string",
+    "description": "The tags, in order, each once",
+    "example": [
+      "design",
+      "Peranti"
+    ]
+  },
+  "props": [
+    {
+      "name": "placeholder",
+      "type": "string",
+      "default": "Add a tag…",
+      "description": "Shown in the empty input"
+    },
+    {
+      "name": "lowercase",
+      "type": "boolean",
+      "default": false,
+      "description": "Lowercase every tag as it's added"
+    }
+  ]
+}

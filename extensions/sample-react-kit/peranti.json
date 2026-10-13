@@ -1,0 +1,7 @@
+{
+  "name": "Sample: React Kit",
+  "description": "A field drawn with React, built with Vite into one HTML, JS and CSS file: a collapsible JSON tree",
+  "version": "1.0.0",
+  "author": "Peranti",
+  "category": "Samples"
+}

@@ -1,0 +1,92 @@
+/* Theme variables such as --accent and --line come from Peranti */
+body {
+  padding: 10px 12px;
+  font-family: var(--font-family-mono);
+  font-size: 12px;
+}
+
+.toolbar {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 6px;
+  font-family: var(--font-family);
+}
+
+.toolbar button {
+  padding: 2px 8px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.toolbar button:hover {
+  background: var(--hover);
+  color: var(--text-color);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  min-height: 22px;
+  padding: 0 4px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+
+.row.is-branch {
+  cursor: pointer;
+}
+
+.row:hover {
+  background: var(--hover);
+}
+
+.toggle {
+  width: 10px;
+  color: var(--faint);
+  transition: transform 0.12s ease;
+}
+
+.toggle.is-open {
+  transform: rotate(90deg);
+}
+
+.children {
+  margin-left: 9px;
+  padding-left: 8px;
+  border-left: 1px solid var(--line);
+}
+
+.key {
+  color: var(--text-color);
+}
+
+.key::after {
+  content: ":";
+  color: var(--faint);
+}
+
+.meta {
+  color: var(--faint);
+}
+
+.value.is-string { color: #16a34a; }
+.value.is-number { color: var(--accent); }
+.value.is-boolean { color: #d97706; }
+.value.is-null { color: var(--faint); font-style: italic; }
+
+.empty {
+  padding: 16px 4px;
+  color: var(--faint);
+  font-family: var(--font-family);
+}

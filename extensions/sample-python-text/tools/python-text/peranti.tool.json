@@ -1,0 +1,78 @@
+{
+  "name": "Sample: Python Text",
+  "description": "Transforms text with a Python script: several inputs, one run",
+  "runtime": "executable",
+  "executable": {
+    "command": "python3",
+    "args": [
+      "main.py"
+    ]
+  },
+  "inputFields": [
+    {
+      "key": "text",
+      "label": "Text",
+      "component": "TextArea",
+      "defaultValue": "hello from peranti"
+    },
+    {
+      "key": "mode",
+      "label": "Mode",
+      "component": "Switch",
+      "defaultValue": "upper",
+      "props": {
+        "options": [
+          {
+            "label": "Upper",
+            "value": "upper"
+          },
+          {
+            "label": "Lower",
+            "value": "lower"
+          },
+          {
+            "label": "Title",
+            "value": "title"
+          },
+          {
+            "label": "Reverse",
+            "value": "reverse"
+          }
+        ]
+      }
+    },
+    {
+      "key": "repeat",
+      "label": "Repeat",
+      "component": "Text",
+      "defaultValue": "1",
+      "props": {
+        "type": "number"
+      }
+    },
+    {
+      "key": "separator",
+      "label": "Separator",
+      "component": "Text",
+      "defaultValue": " | "
+    }
+  ],
+  "outputFields": [
+    {
+      "key": "result",
+      "label": "Result",
+      "component": "TextArea"
+    },
+    {
+      "key": "words",
+      "label": "Words",
+      "component": "Text"
+    },
+    {
+      "key": "chars",
+      "label": "Characters",
+      "component": "Text"
+    }
+  ],
+  "autoRun": true
+}

@@ -1,0 +1,23 @@
+{
+  "name": "Sample: JavaScript Echo",
+  "description": "Returns its input, the smallest JavaScript extension",
+  "runtime": "javascript",
+  "javascript": {
+    "entry": "action.js"
+  },
+  "inputFields": [
+    {
+      "key": "text",
+      "label": "Text",
+      "component": "TextArea"
+    }
+  ],
+  "outputFields": [
+    {
+      "key": "result",
+      "label": "Result",
+      "component": "TextArea"
+    }
+  ],
+  "autoRun": true
+}

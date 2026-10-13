@@ -1,0 +1,37 @@
+{
+  "name": "Text Kit: Word Count",
+  "description": "Counts words, lines and characters with a Python script",
+  "runtime": "executable",
+  "executable": {
+    "command": "python3",
+    "args": [
+      "word_count.py"
+    ]
+  },
+  "inputFields": [
+    {
+      "key": "text",
+      "label": "Text",
+      "component": "TextArea",
+      "defaultValue": "one two three\nfour five"
+    }
+  ],
+  "outputFields": [
+    {
+      "key": "words",
+      "label": "Words",
+      "component": "Text"
+    },
+    {
+      "key": "lines",
+      "label": "Lines",
+      "component": "Text"
+    },
+    {
+      "key": "chars",
+      "label": "Characters",
+      "component": "Text"
+    }
+  ],
+  "autoRun": true
+}

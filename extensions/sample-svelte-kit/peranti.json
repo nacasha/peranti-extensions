@@ -1,0 +1,7 @@
+{
+  "name": "Sample: Svelte Kit",
+  "description": "A field drawn with Svelte, compiled with Vite into one HTML, JS and CSS file: a star rating",
+  "version": "1.0.0",
+  "author": "Peranti",
+  "category": "Samples"
+}

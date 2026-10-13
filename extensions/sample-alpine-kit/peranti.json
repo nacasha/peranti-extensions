@@ -1,0 +1,7 @@
+{
+  "name": "Sample: Alpine Kit",
+  "description": "A field drawn with Alpine.js and no build step, from Alpine's CSP build: a checklist",
+  "version": "1.0.0",
+  "author": "Peranti",
+  "category": "Samples"
+}

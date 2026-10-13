@@ -1,0 +1,36 @@
+{
+  "name": "Vue Kit: Hashtags",
+  "description": "Turns a list of tags into hashtags",
+  "runtime": "javascript",
+  "javascript": {
+    "entry": "hashtags.js"
+  },
+  "inputFields": [
+    {
+      "key": "tags",
+      "label": "Tags",
+      "component": "@tag-input",
+      "defaultValue": [
+        "design",
+        "open source",
+        "Peranti"
+      ],
+      "props": {
+        "placeholder": "Add a tag…"
+      }
+    }
+  ],
+  "outputFields": [
+    {
+      "key": "hashtags",
+      "label": "Hashtags",
+      "component": "TextArea"
+    },
+    {
+      "key": "count",
+      "label": "Count",
+      "component": "Text"
+    }
+  ],
+  "autoRun": true
+}

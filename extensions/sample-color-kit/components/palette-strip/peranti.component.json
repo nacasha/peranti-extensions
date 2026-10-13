@@ -1,0 +1,58 @@
+{
+  "name": "Palette Strip",
+  "description": "Shows a row of named colors",
+  "kind": "output",
+  "entry": "index.html",
+  "height": 120,
+  "value": {
+    "type": "array",
+    "description": "Colors to show",
+    "fields": [
+      {
+        "name": "name",
+        "type": "string",
+        "required": true,
+        "description": "Label under the color"
+      },
+      {
+        "name": "hex",
+        "type": "string",
+        "required": true,
+        "description": "Any CSS color"
+      }
+    ],
+    "example": [
+      {
+        "name": "Base",
+        "hex": "#2b9fe6"
+      },
+      {
+        "name": "Second",
+        "hex": "#e62b9f"
+      },
+      {
+        "name": "Third",
+        "hex": "#9fe62b"
+      }
+    ]
+  },
+  "props": [
+    {
+      "name": "showHex",
+      "type": "boolean",
+      "default": true,
+      "description": "Show the hex code under each color"
+    },
+    {
+      "name": "size",
+      "type": "string",
+      "default": "medium",
+      "options": [
+        "small",
+        "medium",
+        "large"
+      ],
+      "description": "Height of the color chips"
+    }
+  ]
+}

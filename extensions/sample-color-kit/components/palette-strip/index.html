@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+      body { padding: 14px; }
+
+      .strip {
+        display: flex;
+        gap: 8px;
+      }
+
+      .color {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .chip {
+        height: 56px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-md);
+      }
+
+      .name {
+        font-size: 11px;
+        color: var(--muted);
+      }
+
+      .hex {
+        font-family: var(--font-family-mono);
+        font-size: 12px;
+      }
+
+      .empty {
+        padding: 18px 4px;
+        color: var(--faint);
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="strip" class="strip"></div>
+
+    <script>
+      // An output component: only reads its value, the tool's run sets it.
+      // Its field's "props" arrive as peranti.props.
+      const strip = document.getElementById("strip")
+      const chipHeights = { small: 32, medium: 56, large: 88 }
+
+      peranti.onValue((colors) => {
+        const { showHex = true, size = "medium" } = peranti.props
+        strip.replaceChildren()
+
+        if (!Array.isArray(colors) || colors.length === 0) {
+          strip.innerHTML = '<div class="empty">Pick a color to see its palette</div>'
+          return
+        }
+
+        colors.forEach(({ name, hex }) => {
+          const item = document.createElement("div")
+          item.className = "color"
+          item.innerHTML = '<div class="chip"></div><div class="name"></div><div class="hex"></div>'
+          item.querySelector(".chip").style.background = hex
+          item.querySelector(".chip").style.height = `${chipHeights[size] ?? chipHeights.medium}px`
+          item.querySelector(".name").textContent = name
+          item.querySelector(".hex").textContent = hex
+          item.querySelector(".hex").hidden = !showHex
+          strip.append(item)
+        })
+      })
+    </script>
+  </body>
+</html>

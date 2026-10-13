@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!-- Linked files next to this one are inlined by Peranti when it loads -->
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="wheel-row">
+      <canvas id="wheel" width="180" height="180" aria-label="Hue wheel"></canvas>
+
+      <div class="controls">
+        <div id="swatch" class="swatch"></div>
+        <code id="hex">#000000</code>
+
+        <label id="lightness-control">
+          Lightness
+          <input id="lightness" type="range" min="15" max="85" value="55">
+        </label>
+      </div>
+    </div>
+
+    <script src="wheel.js"></script>
+  </body>
+</html>

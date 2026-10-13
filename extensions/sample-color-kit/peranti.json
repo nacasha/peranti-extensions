@@ -1,0 +1,7 @@
+{
+  "name": "Sample: Color Kit",
+  "description": "Tools with fields the extension draws itself: a hue wheel to pick a color, and a palette strip to show the result",
+  "version": "1.0.0",
+  "author": "Peranti",
+  "category": "Samples"
+}

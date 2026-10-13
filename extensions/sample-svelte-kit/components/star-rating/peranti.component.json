@@ -1,0 +1,20 @@
+{
+  "name": "Star Rating",
+  "description": "Pick a rating by clicking a star, arrow keys work too",
+  "kind": "input",
+  "entry": "dist/index.html",
+  "height": 64,
+  "value": {
+    "type": "number",
+    "description": "Stars picked, 0 when cleared",
+    "example": 4
+  },
+  "props": [
+    {
+      "name": "max",
+      "type": "number",
+      "default": 5,
+      "description": "Number of stars"
+    }
+  ]
+}

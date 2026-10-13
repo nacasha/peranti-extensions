@@ -1,0 +1,32 @@
+{
+  "name": "Sample: Node Script",
+  "description": "Uppercases text with a plain node script",
+  "runtime": "executable",
+  "executable": {
+    "command": "node",
+    "args": [
+      "script.js"
+    ]
+  },
+  "inputFields": [
+    {
+      "key": "text",
+      "label": "Text",
+      "component": "TextArea",
+      "defaultValue": "hello from peranti"
+    }
+  ],
+  "outputFields": [
+    {
+      "key": "upper",
+      "label": "Uppercase",
+      "component": "TextArea"
+    },
+    {
+      "key": "length",
+      "label": "Length",
+      "component": "Text"
+    }
+  ],
+  "autoRun": true
+}
