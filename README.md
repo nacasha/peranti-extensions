@@ -5,9 +5,10 @@ Peranti downloads only the folder of the extension you install.
 
 ## Adding an extension
 
-1. Create `extensions/<id>/`, where `<id>` uses lowercase letters, digits and dashes.
+1. Create a folder `<id>/` at the root of this repo, where `<id>` uses lowercase letters, digits and dashes.
 2. Add a `peranti.json`, and a `tools/<tool>/peranti.tool.json` for each tool it provides.
-3. Link this repo's folder in **Settings → Extensions → Choose Folder** to try it,
+   An extension needs at least one tool.
+3. Try it by adding this repo's folder in **Settings → Extensions** (switch to **Local**, then **Choose Folder**),
    then open a pull request. There is nothing to build: Peranti reads the folders as they are.
 
 Bump `version` whenever you change an extension, so installed copies show an update.
@@ -20,7 +21,7 @@ component is a folder in `components/` with a `peranti.component.json`.
 Peranti finds them on its own, so adding a tool means adding its folder.
 
 ```
-extensions/text-kit/
+text-kit/
 ├── peranti.json                      # the extension
 ├── tools/
 │   ├── slugify/
@@ -63,6 +64,7 @@ export default function action({ text }) {
 **`executable`** runs any program in the desktop app, from inside the folder of the tool's `peranti.tool.json`.
 The input values are written to stdin and the output values are read from stdout.
 A non-zero exit shows stderr as the error. `timeoutMs` defaults to 30000.
+A `javascript` tool is stopped after 30 seconds.
 
 ```json
 { "runtime": "executable", "executable": { "command": "python3", "args": ["main.py"] } }
@@ -82,8 +84,8 @@ Peranti asks for confirmation before installing an extension with an executable 
 
 | Field | Required | |
 |---|---|---|
-| `name` | yes | |
-| `version` | yes | Dotted numbers, like `1.2.0` |
+| `name` | no | Falls back to the folder name |
+| `version` | no | Dotted numbers, like `1.2.0`. Left out it counts as `0.0.0`, so set it: it's how installed copies know an update exists |
 | `description`, `author` | no | Shown in the catalog |
 | `category` | no | Default for tools without one |
 
@@ -101,11 +103,74 @@ Peranti asks for confirmation before installing an extension with an executable 
 
 | Field | Required | |
 |---|---|---|
-| `name` | yes | |
+| `name` | no | Falls back to the folder name |
 | `runtime` | yes | `javascript` or `executable`, with its `javascript` or `executable` settings |
-| `inputFields`, `outputFields` | yes | Same fields as Peranti's built-in tools |
-| `description`, `category` | no | `category` falls back to the extension's |
-| `autoRun`, `samples`, `layoutSetting` | no | |
+| `inputFields`, `outputFields` | yes | The tool's fields, see below |
+| `description` | no | |
+| `category`, `version`, `author` | no | Fall back to the extension's |
+| `autoRun` | no | Runs the tool whenever an input changes. On when left out, set `false` for a tool that needs a Run button |
+| `samples` | no | Examples to load: `[{ "name": "Hello", "inputValues": { "text": "Hello" } }]` |
+| `layoutSetting` | no | How the input and output areas and their fields are placed, see below |
+| `disableMultipleSession` | no | `true` keeps one open tab of the tool. Follows the user's multiple-tabs setting when left out |
+
+Each field has a `key` (the name in the JSON the tool receives or returns), a
+`label` and a `component`. Inputs may also set `defaultValue`, and any field
+may set `props` for its component.
+
+| Fields | Components |
+|---|---|
+| Inputs | `Text`, `TextArea`, `Switch`, `Checkbox`, `Select`, `DateTime`, `Code`, `File`, `Files`, `ListPick`, `ListReorder`, `ColorPicker` |
+| Outputs | `Text`, `TextArea`, `Code`, `Markdown`, `KeyValue`, `GridStat`, `DataGrid`, `Diff`, `Image`, `File`, `IFrame`, `Mermaid`, `Pintora`, `Color`, `ColorPallete` |
+| Either | `@<component folder>`, an extension's own component, see Components |
+
+The `component` and `props` of each field work the same as in Peranti's own
+tools. The samples here show the common ones: `Text` with `"props": { "type": "number" }`
+and `Switch` with `options` in
+[`sample-bash-calc`](sample-bash-calc/tools/bash-calc/peranti.tool.json).
+
+### Screen layout
+
+By default the input and output areas sit side by side, and the fields in each
+area are stacked top to bottom. `layoutSetting` changes that. Any setting left
+out keeps its default.
+
+```json
+"layoutSetting": {
+  "areaType": "flex",
+  "areaFlexDirection": "vertical",
+  "fieldsType": "flex",
+  "fieldsInputFlexDirection": "horizontal"
+}
+```
+
+| Setting | Values | Default | |
+|---|---|---|---|
+| `areaType` | `flex`, `grid` | `flex` | How the input and output **areas** are placed |
+| `areaFlexDirection` | `horizontal`, `vertical` | `horizontal` | With `flex`: side by side, or one above the other |
+| `areaGridTemplate` | a CSS `grid-template` | | With `grid`: the areas are named `input` and `output` |
+| `fieldsType` | `flex`, `grid` | `flex` | How the **fields** inside the areas are placed |
+| `fieldsInputFlexDirection`, `fieldsOutputFlexDirection` | `horizontal`, `vertical` | `vertical` | With `flex`: the direction of the input fields, and of the output fields |
+| `fieldsInputGridTemplate`, `fieldsOutputGridTemplate` | a CSS `grid-template` | | With `grid`: the fields are named by their `key` |
+
+Only the settings of the chosen type apply: `areaFlexDirection` is ignored
+when `areaType` is `grid`, and the same for the fields.
+
+A grid template is the CSS `grid-template` shorthand: quoted rows name the
+areas, and the sizes after them set each row's height.
+
+```json
+"layoutSetting": {
+  "areaType": "grid",
+  "areaGridTemplate": "'input' min-content 'output' 1fr",
+  "fieldsType": "grid",
+  "fieldsInputGridTemplate": "'expression' 1fr 'json' 3fr"
+}
+```
+
+The first one puts the input area on top, as tall as its fields need, and the
+output below it taking the rest. The second gives the input field `expression`
+a quarter of the input area and `json` three quarters. An `@` component takes
+part in the grid under its field `key` like any other field.
 
 The extension installs, updates and is enabled as one. Each tool shows up in
 Peranti on its own, with the ID `<extension id>/<tool folder>`.
@@ -115,7 +180,7 @@ Peranti on its own, with the ID `<extension id>/<tool folder>`.
 When no built-in field fits, an extension can draw its own with HTML. Its tools
 use it with `"component": "@<component folder>"`, such as `"@hue-wheel"`. A component belongs to its
 extension: other extensions can't use it. See
-[`sample-color-kit`](extensions/sample-color-kit) for an input (a hue wheel)
+[`sample-color-kit`](sample-color-kit) for an input (a hue wheel)
 and an output (a palette strip).
 
 ```json
@@ -129,8 +194,8 @@ and an output (a palette strip).
 
 | Field | Required | |
 |---|---|---|
-| `name` | yes | |
-| `entry` | yes | HTML file inside the component's folder, such as `index.html` or `dist/index.html` |
+| `name` | no | Falls back to the folder name |
+| `entry` | yes | HTML file inside the component's folder, such as `index.html` or `dist/index.html`. Must stay inside the folder |
 | `kind` | no | `input`, `output` or `both` (default) |
 | `height` | no | Starting height in pixels, default 160. The frame then follows the content height |
 | `value` | no | What its value is, see below. Treated as any JSON when left out |
@@ -148,7 +213,7 @@ it on the Components screen:
 ```
 
 `type` is one of `string`, `number`, `boolean`, `json-string` (JSON written as
-text), `object`, `array`, `any` or `none`. `example` is the starting value on
+text), `object`, `array`, `file`, `files`, `any` or `none`. `example` is the starting value on
 the Components screen when no tool sets a default.
 
 For an `object` or an `array`, `fields` describes its structure: the keys of
@@ -218,10 +283,10 @@ build output such as `dist/index.html`.
 
 | Sample | Framework | Build | Component |
 |---|---|---|---|
-| [`sample-react-kit`](extensions/sample-react-kit) | React | Vite | JSON tree (output) |
-| [`sample-svelte-kit`](extensions/sample-svelte-kit) | Svelte | Vite | Star rating (input) |
-| [`sample-vue-kit`](extensions/sample-vue-kit) | Vue | none | Tag input (input) |
-| [`sample-alpine-kit`](extensions/sample-alpine-kit) | Alpine.js | none | Checklist (input) |
+| [`sample-react-kit`](sample-react-kit) | React | Vite | JSON tree (output) |
+| [`sample-svelte-kit`](sample-svelte-kit) | Svelte | Vite | Star rating (input) |
+| [`sample-vue-kit`](sample-vue-kit) | Vue | none | Tag input (input) |
+| [`sample-alpine-kit`](sample-alpine-kit) | Alpine.js | none | Checklist (input) |
 
 **With a build**, keep the output to one JS file and one CSS file. The frame
 can't load a second chunk or an asset file, so in Vite:
@@ -253,8 +318,8 @@ properties and methods instead of holding expressions.
 ## Hosting your own catalog
 
 A catalog is a folder of extension folders, each with a `peranti.json`. They
-can sit in an `extensions` folder, as in this repo, or at the root. There is
-no index file and no script to run.
+can sit at the root, as in this repo, or inside an `extensions` folder. There
+is no index file and no script to run.
 
 In Peranti, open **Settings → Extensions** and add one:
 
