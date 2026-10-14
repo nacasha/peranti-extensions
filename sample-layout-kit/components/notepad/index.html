@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    /* html and body are as tall as the field's place in the layout: a flex
+       column lets the editor take what the footer leaves */
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .editor {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      overflow: auto;
+      font-family: var(--font-family-mono);
+      font-size: 13px;
+      line-height: 20px;
+    }
+
+    .gutter {
+      flex: none;
+      padding: 12px 10px 12px 14px;
+      text-align: right;
+      color: var(--faint);
+      white-space: pre;
+      user-select: none;
+    }
+
+    textarea {
+      flex: 1;
+      min-width: 0;
+      padding: 12px 14px 12px 4px;
+      border: 0;
+      outline: none;
+      resize: none;
+      overflow: hidden;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      white-space: pre;
+    }
+
+    .footer {
+      flex: none;
+      padding: 6px 14px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 11px;
+    }
+  </style>
+</head>
+<body>
+  <div class="editor">
+    <div id="gutter" class="gutter">1</div>
+    <textarea id="text" spellcheck="false" placeholder="Type here"></textarea>
+  </div>
+  <div id="footer" class="footer"></div>
+
+  <script>
+    const text = document.getElementById("text")
+    const gutter = document.getElementById("gutter")
+    const footer = document.getElementById("footer")
+
+    // The editor scrolls as a whole, so the textarea grows with its lines
+    // and the gutter stays next to them
+    const render = () => {
+      const lines = text.value.split("\n").length
+      gutter.textContent = Array.from({ length: lines }, (_, index) => index + 1).join("\n")
+      text.style.height = "auto"
+      text.style.height = `${text.scrollHeight}px`
+      footer.textContent = `${lines} line${lines === 1 ? "" : "s"} · ${text.value.length} characters`
+    }
+
+    peranti.onValue((value) => {
+      const next = typeof value === "string" ? value : ""
+      if (next !== text.value) {
+        text.value = next
+      }
+      text.readOnly = peranti.readOnly
+      render()
+    })
+
+    text.addEventListener("input", () => {
+      render()
+      peranti.setValue(text.value)
+    })
+  </script>
+</body>
+</html>

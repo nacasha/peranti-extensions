@@ -1,0 +1,11 @@
+{
+  "name": "Notepad",
+  "description": "A text editor with line numbers that fills its place",
+  "kind": "input",
+  "entry": "index.html",
+  "value": {
+    "type": "string",
+    "description": "The text",
+    "example": "Hello\nfrom a full height field"
+  }
+}

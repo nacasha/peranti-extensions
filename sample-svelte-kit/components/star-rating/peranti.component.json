@@ -3,7 +3,6 @@
   "description": "Pick a rating by clicking a star, arrow keys work too",
   "kind": "input",
   "entry": "dist/index.html",
-  "height": 64,
   "value": {
     "type": "number",
     "description": "Stars picked, 0 when cleared",

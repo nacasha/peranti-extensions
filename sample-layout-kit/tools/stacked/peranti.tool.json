@@ -1,0 +1,36 @@
+{
+  "name": "Layout Kit: Stacked",
+  "description": "Counts letters, with the inputs above the bars. Each area takes half the height, and the two notepads split the input half",
+  "runtime": "javascript",
+  "javascript": {
+    "entry": "count-letters.js"
+  },
+  "inputFields": [
+    {
+      "key": "text",
+      "label": "Text",
+      "component": "@notepad",
+      "defaultValue": "The quick brown fox\njumps over the lazy dog"
+    },
+    {
+      "key": "skip",
+      "label": "Letters to Skip",
+      "component": "@notepad",
+      "defaultValue": "aeiou"
+    }
+  ],
+  "outputFields": [
+    {
+      "key": "bars",
+      "label": "Letters",
+      "component": "@letter-bars"
+    }
+  ],
+  "layoutSetting": {
+    "areaType": "flex",
+    "areaFlexDirection": "vertical",
+    "fieldsType": "flex",
+    "fieldsInputFlexDirection": "vertical"
+  },
+  "autoRun": true
+}

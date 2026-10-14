@@ -3,7 +3,6 @@
   "description": "Pick a hue on a wheel and a lightness on a slider",
   "kind": "input",
   "entry": "index.html",
-  "height": 220,
   "value": {
     "type": "object",
     "description": "The picked color",

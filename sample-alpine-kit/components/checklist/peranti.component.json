@@ -3,7 +3,6 @@
   "description": "Items to tick off, with a progress bar. Add with Enter, remove with ×",
   "kind": "input",
   "entry": "index.html",
-  "height": 200,
   "value": {
     "type": "array",
     "description": "The items, in order",

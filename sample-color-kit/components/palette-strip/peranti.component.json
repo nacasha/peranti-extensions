@@ -3,7 +3,6 @@
   "description": "Shows a row of named colors",
   "kind": "output",
   "entry": "index.html",
-  "height": 120,
   "value": {
     "type": "array",
     "description": "Colors to show",

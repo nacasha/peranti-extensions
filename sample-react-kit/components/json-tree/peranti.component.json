@@ -3,7 +3,6 @@
   "description": "Collapsible tree of any JSON value, values colored by type",
   "kind": "output",
   "entry": "dist/index.html",
-  "height": 240,
   "value": {
     "type": "any",
     "description": "Any JSON value",

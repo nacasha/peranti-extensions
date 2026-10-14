@@ -1,0 +1,29 @@
+{
+  "name": "Letter Bars",
+  "description": "A bar chart of letter counts that fills its place",
+  "kind": "output",
+  "entry": "index.html",
+  "value": {
+    "type": "array",
+    "description": "Letters and how often they appear",
+    "fields": [
+      {
+        "name": "letter",
+        "type": "string",
+        "required": true,
+        "description": "Label under the bar"
+      },
+      {
+        "name": "count",
+        "type": "number",
+        "required": true,
+        "description": "Bar height, relative to the largest count"
+      }
+    ],
+    "example": [
+      { "letter": "a", "count": 5 },
+      { "letter": "b", "count": 2 },
+      { "letter": "c", "count": 8 }
+    ]
+  }
+}

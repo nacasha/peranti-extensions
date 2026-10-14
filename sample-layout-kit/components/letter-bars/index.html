@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    /* body is as tall as the field's place in the layout: the bars are
+       sized in percent of it, so they grow and shrink with it */
+    body {
+      box-sizing: border-box;
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      padding: 16px;
+    }
+
+    .bar {
+      flex: 1;
+      min-width: 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .fill {
+      width: 100%;
+      min-height: 2px;
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+      background: var(--accent);
+    }
+
+    .count {
+      font-family: var(--font-family-mono);
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .letter {
+      font-family: var(--font-family-mono);
+      font-size: 12px;
+    }
+
+    .empty {
+      align-self: center;
+      margin: 0 auto;
+      color: var(--faint);
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    peranti.onValue((bars) => {
+      document.body.replaceChildren()
+
+      if (!Array.isArray(bars) || bars.length === 0) {
+        document.body.innerHTML = '<div class="empty">Type some letters to see their bars</div>'
+        return
+      }
+
+      const max = Math.max(...bars.map((bar) => bar.count), 1)
+      bars.forEach(({ letter, count }) => {
+        const bar = document.createElement("div")
+        bar.className = "bar"
+        bar.innerHTML = '<div class="count"></div><div class="fill"></div><div class="letter"></div>'
+        bar.querySelector(".count").textContent = count
+        // Leaves room for the two labels above and below the bar
+        bar.querySelector(".fill").style.height = `calc((100% - 40px) * ${count / max})`
+        bar.querySelector(".letter").textContent = letter
+        document.body.append(bar)
+      })
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "name": "Layout Kit: Side by Side",
+  "description": "Counts letters, with the notepad and the bars next to each other at full height",
+  "runtime": "javascript",
+  "javascript": {
+    "entry": "count-letters.js"
+  },
+  "inputFields": [
+    {
+      "key": "text",
+      "label": "Text",
+      "component": "@notepad",
+      "defaultValue": "The quick brown fox\njumps over the lazy dog"
+    }
+  ],
+  "outputFields": [
+    {
+      "key": "bars",
+      "label": "Letters",
+      "component": "@letter-bars"
+    }
+  ],
+  "layoutSetting": {
+    "areaType": "flex",
+    "areaFlexDirection": "horizontal"
+  },
+  "autoRun": true
+}

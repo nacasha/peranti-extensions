@@ -87,7 +87,7 @@ Peranti asks for confirmation before installing an extension with an executable 
 | `name` | no | Falls back to the folder name |
 | `version` | no | Dotted numbers, like `1.2.0`. Left out it counts as `0.0.0`, so set it: it's how installed copies know an update exists |
 | `description`, `author` | no | Shown in the catalog |
-| `category` | no | Default for tools without one |
+| `category` | no | Default for tools without one. Tools with neither show under "Extensions" |
 
 ## `peranti.tool.json`
 
@@ -130,47 +130,73 @@ and `Switch` with `options` in
 
 ### Screen layout
 
-By default the input and output areas sit side by side, and the fields in each
-area are stacked top to bottom. `layoutSetting` changes that. Any setting left
-out keeps its default.
-
-```json
-"layoutSetting": {
-  "areaType": "flex",
-  "areaFlexDirection": "vertical",
-  "fieldsType": "flex",
-  "fieldsInputFlexDirection": "horizontal"
-}
-```
+A tool's screen has two **areas**, input and output, and each holds its
+**fields**. By default the areas sit side by side and the fields in each are
+stacked top to bottom. `layoutSetting` changes that, and any setting left out
+keeps its default.
 
 | Setting | Values | Default | |
 |---|---|---|---|
 | `areaType` | `flex`, `grid` | `flex` | How the input and output **areas** are placed |
-| `areaFlexDirection` | `horizontal`, `vertical` | `horizontal` | With `flex`: side by side, or one above the other |
+| `areaFlexDirection` | `horizontal`, `vertical` | `horizontal` | With `flex`: side by side, or input above output |
 | `areaGridTemplate` | a CSS `grid-template` | | With `grid`: the areas are named `input` and `output` |
-| `fieldsType` | `flex`, `grid` | `flex` | How the **fields** inside the areas are placed |
+| `fieldsType` | `flex`, `grid` | `flex` | How the **fields** inside both areas are placed |
 | `fieldsInputFlexDirection`, `fieldsOutputFlexDirection` | `horizontal`, `vertical` | `vertical` | With `flex`: the direction of the input fields, and of the output fields |
 | `fieldsInputGridTemplate`, `fieldsOutputGridTemplate` | a CSS `grid-template` | | With `grid`: the fields are named by their `key` |
 
 Only the settings of the chosen type apply: `areaFlexDirection` is ignored
-when `areaType` is `grid`, and the same for the fields.
+when `areaType` is `grid`, and the same for the fields. `fieldsType` applies
+to both areas, so with `grid` set both field templates.
 
-A grid template is the CSS `grid-template` shorthand: quoted rows name the
-areas, and the sizes after them set each row's height.
+**Flex** shares the space equally. Areas or fields side by side each get the
+full height, and stacked ones split it:
+
+```json
+"layoutSetting": {
+  "areaFlexDirection": "vertical",
+  "fieldsInputFlexDirection": "horizontal"
+}
+```
+
+This puts the input area above the output, each half the height, with the
+input fields next to each other. See
+[`sample-layout-kit`](sample-layout-kit) for both directions.
+
+**Grid** sizes each row yourself. A template is the CSS `grid-template`
+shorthand: quoted rows name the areas, the size after each row sets its
+height, and an optional `/ …` after the rows sets the column widths.
 
 ```json
 "layoutSetting": {
   "areaType": "grid",
   "areaGridTemplate": "'input' min-content 'output' 1fr",
   "fieldsType": "grid",
-  "fieldsInputGridTemplate": "'expression' 1fr 'json' 3fr"
+  "fieldsInputGridTemplate": "'expression' 1fr 'json' 3fr",
+  "fieldsOutputGridTemplate": "'result' 1fr"
 }
 ```
 
-The first one puts the input area on top, as tall as its fields need, and the
-output below it taking the rest. The second gives the input field `expression`
-a quarter of the input area and `json` three quarters. An `@` component takes
-part in the grid under its field `key` like any other field.
+The input area sits on top, as tall as its fields need, and the output takes
+the rest. In the input area, `expression` gets a quarter of the height and
+`json` three quarters. Name every field of an area in its template: a field
+left out isn't placed where you expect.
+
+**Sizes to use in a template:**
+
+| Size | Gives the field |
+|---|---|
+| `1fr`, `2fr`, … | A share of the space left, like flex |
+| `min-content` | Only the height its content needs |
+| `120px` | A fixed height |
+
+Editors and viewers (`TextArea`, `Code`, `Markdown`, `DataGrid`, …) fill the
+place they get and have no height of their own, so give them `fr` rows.
+Single-line fields (`Text`, `Select`, `Switch`, `DateTime`, …) and `@`
+components fit a `min-content` row. See Components for how an `@` component
+is sized.
+
+Batch mode and a maximized field always show the fields side by side,
+whatever the layout says.
 
 The extension installs, updates and is enabled as one. Each tool shows up in
 Peranti on its own, with the ID `<extension id>/<tool folder>`.
@@ -183,12 +209,32 @@ extension: other extensions can't use it. See
 [`sample-color-kit`](sample-color-kit) for an input (a hue wheel)
 and an output (a palette strip).
 
+A component has no size setting. The tool's `layoutSetting` sizes it like any
+other field (see Screen layout):
+
+- **In flex, or a `fr` row**, it takes the whole place it gets. Its page's
+  `html` and `body` are that tall, so the content can fill them with
+  `height: 100%` or scroll inside them, as in
+  [`sample-layout-kit`](sample-layout-kit).
+- **In a `min-content` row**, it's as tall as its content and follows it as
+  the content changes, as in `sample-color-kit`'s Harmony tool:
+
+```json
+"layoutSetting": {
+  "fieldsType": "grid",
+  "fieldsInputGridTemplate": "'base' min-content 'scheme' min-content / 1fr",
+  "fieldsOutputGridTemplate": "'palette' min-content 'hexes' min-content / 1fr"
+}
+```
+
+Content that fills its body with `height: 100%` has no height of its own, so
+keep it out of `min-content` rows.
+
 ```json
 {
   "name": "Hue Wheel",
   "kind": "input",
-  "entry": "index.html",
-  "height": 220
+  "entry": "index.html"
 }
 ```
 
@@ -197,12 +243,11 @@ and an output (a palette strip).
 | `name` | no | Falls back to the folder name |
 | `entry` | yes | HTML file inside the component's folder, such as `index.html` or `dist/index.html`. Must stay inside the folder |
 | `kind` | no | `input`, `output` or `both` (default) |
-| `height` | no | Starting height in pixels, default 160. The frame then follows the content height |
 | `value` | no | What its value is, see below. Treated as any JSON when left out |
 | `description` | no | |
 
 `value` describes the value for people using the component, and Peranti shows
-it on the Components screen:
+it in **Manage → Components**:
 
 ```json
 "value": {
@@ -214,12 +259,12 @@ it on the Components screen:
 
 `type` is one of `string`, `number`, `boolean`, `json-string` (JSON written as
 text), `object`, `array`, `file`, `files`, `any` or `none`. `example` is the starting value on
-the Components screen when no tool sets a default.
+**Manage → Components** when no tool sets a default.
 
 For an `object` or an `array`, `fields` describes its structure: the keys of
 the object, or the keys of each item of the array. Each key takes the same
 `name`, `type`, `description`, `required` and `options` as a prop, and the
-Components screen checks values against them. An array of plain values sets
+Components tab checks values against them. An array of plain values sets
 `itemType` instead, such as `"itemType": "string"`.
 
 ```json
@@ -234,7 +279,7 @@ Components screen checks values against them. An array of plain values sets
 ```
 
 `props` lists what the component reads from `peranti.props`, which is the
-`"props"` a tool sets on the field. The Components screen lists them, adds
+`"props"` a tool sets on the field. The Components tab lists them, adds
 them with one click, and checks what is typed against them:
 
 ```json
@@ -252,7 +297,7 @@ them with one click, and checks what is typed against them:
 | `default` | no | What the component uses when the prop is left out |
 | `options` | no | The values allowed, for a prop that picks one of a few |
 | `required` | no | `true` when the component shows nothing useful without it |
-| `example` | no | Filled in when the prop is added on the Components screen |
+| `example` | no | Filled in when the prop is added in the Components tab |
 
 The HTML runs in a sandboxed frame. It can't reach Peranti, its storage, your
 files or the network, and can't load anything from outside. Scripts and

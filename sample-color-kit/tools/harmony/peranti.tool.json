@@ -54,5 +54,10 @@
       "component": "Text"
     }
   ],
-  "autoRun": true
+  "autoRun": true,
+  "layoutSetting": {
+    "fieldsType": "grid",
+    "fieldsInputGridTemplate": "'base' min-content 'scheme' min-content / 1fr",
+    "fieldsOutputGridTemplate": "'palette' min-content 'hexes' min-content / 1fr"
+  }
 }

@@ -3,7 +3,6 @@
   "description": "Type a tag and press Enter or comma, Backspace removes the last one",
   "kind": "input",
   "entry": "index.html",
-  "height": 56,
   "value": {
     "type": "array",
     "itemType": "string",
